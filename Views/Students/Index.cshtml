@@ -1,0 +1,134 @@
+﻿@model CYCMSchool.Models.ViewModels.StudentIndexData;
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                First Name
+            </th>
+            <th>
+                Last Name
+            </th>
+            <th>
+                Date of Birth
+            </th>
+            <th>
+                Student Gender
+            </th>
+            <th>
+                Guardian's Name
+            </th>
+            <th>
+                Contact Email
+            </th>
+            <th>
+                Contact Number
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.Students)
+        {
+            string selectedRow = "";
+            if (item.Id == (int?)ViewData["StudentID"])
+            {
+                selectedRow = "table-success";
+
+            }
+            <tr class="@selectedRow">
+                <td>
+                    @Html.DisplayFor(modelItem => item.FirstName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.LastName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.DateOfBirth)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.StudentGender)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.GuardianName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ContactEmail)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ContactNumber)
+                </td>
+                <td>
+                    <a asp-action="Index" asp-route-id="@item.Id" class="link-primary">Select</a> |
+                    <a asp-action="Edit" asp-route-id="@item.Id" class="link-primary">Edit</a> |
+                    <a asp-action="Details" asp-route-id="@item.Id" class="link-primary">Details</a> |
+                    <a asp-action="Delete" asp-route-id="@item.Id" class="link-primary">Delete</a>
+                </td>
+            </tr>
+
+        }
+    </tbody>
+</table>
+
+@if (Model.Lessons != null)
+{
+    <h3>Student's Lessons</h3>
+    <p>
+        @Html.ActionLink("Create New", "Create", "Lessons", new { StudentID = Model.StudentID })
+    </p>
+    <table class="table">
+        <tr>
+            <th>Lesson Date</th>
+            <th>Tutor</th>
+            <th>Instrument</th>
+            <th>Paid</th>
+            <th></th>
+        </tr>
+        @foreach (var item in Model.Lessons)
+        {
+           
+    <tr>
+        <td>@item.LessonDate</td>
+        <td>@item.Tutor.FullName</td>
+        <td>@item.Instrument.InstrumentName</td>
+        <td>@item.Paid</td>
+        <td>
+            <a asp-controller="Lessons" asp-action="Details" asp-route-id="@item.Id" class="link-primary">View</a>
+            <a asp-controller="Lessons" asp-action="Edit" asp-route-id="@item.Id" class="link-primary">Edit</a>
+        </td>
+    </tr>
+        }
+    </table>
+}
+@if (Model.Letters != null)
+{
+    <h3>Student's Letters</h3>
+    @Html.ActionLink("Create New", "Create", "Letters", new { StudentID=Model.StudentID })
+    <table class="table">
+        <tr>
+            <th>Letter Reference</th>
+            <th>Comment</th>
+            <th>Created</th>
+            <th></th>
+        </tr>
+        
+        @foreach (var item in Model.Letters)
+        {
+            <tr>
+                <td>@item.LetterRef</td>
+                <td>@item.Comment</td>
+                <td>@item.CreatedDate</td>
+                <td><a asp-controller="Letters" asp-action="Details" asp-route-id="@item.Id" class="link-primary">View</a></td>
+            </tr>
+        }
+    </table>
+}

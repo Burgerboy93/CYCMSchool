@@ -1,0 +1,108 @@
+﻿@model CYCMSchool.Models.ViewModels.LessonsIndexData;
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                Lesson Date
+            </th>
+            <th>
+                Term
+            </th>
+            <th>
+                Student Name
+            </th>
+            <th>
+                Tutor Name
+            </th>
+            <th>
+                Instrument
+            </th>
+            <th>
+                Duration
+            </th>
+            <th>
+                Cost
+            </th>
+            <th>
+                Paid
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.Lessons)
+        {
+            string selectedRow = "";
+            if (item.Id == (int?)ViewData["LessonID"])
+            {
+                selectedRow = "table-success";
+            }
+        <tr class="@selectedRow">
+            <td>
+                @Html.DisplayFor(modelItem => item.LessonDate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Term.TermNumber)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Student.FullName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Tutor.FullName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Instrument.InstrumentName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Duration.DurationTime)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Duration.Cost)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Paid)
+            </td>
+            <td>
+                <a asp-action="Index" asp-route-id="@item.Id">Select</a> |
+                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+            </td>
+        </tr>
+            }
+        </tbody>
+    </table>
+    @if (Model.Letters != null)
+    {
+        <h3>Letters with Lesson</h3>
+        <table class="table">
+            <tr>
+                <th>Letter Reference</th>
+                <th>Comment</th>
+                <th>Bank Name</th>
+                <th>Account Name</th>
+                <th>Created Date</th>
+            </tr>
+            @foreach (var item in Model.Letters)
+            {
+        <tr>
+            <td>@item.LetterRef</td>
+            <td>@item.Comment</td>
+            <td>@item.Bank.BankName</td>
+            <td>@item.Bank.AccountName</td>
+            <td>@item.CreatedDate</td>
+        </tr>
+            }
+        </table>
+    }
+

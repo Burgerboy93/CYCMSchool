@@ -1,0 +1,62 @@
+﻿@{
+    ViewData["Title"] = "Admin";
+}
+<h1>@ViewData["Title"]</h1>
+
+
+<div class="row">
+    <div class="col-sm-6">
+        <div class="card text-white bg-primary mb-3">
+            <div class="card-header">
+                Bank
+            </div>
+            <div class="card-body">
+                <p class="card-text">
+                    Maintain bank account information that attaches to letters.
+                </p>
+                <a class="btn btn-secondary" asp-controller="Banks" asp-action="Index">Banks</a>
+            </div>
+        </div>
+    </div>
+    <div class="col-sm-6">
+        <div class="card text-white bg-primary mb-3">
+            <div class="card-header">
+                Duration
+            </div>
+            <div class="card-body">
+                <p class="card-tex">
+                    Maintain lesson durations and costs associated with each type.
+                </p>
+                <a class="btn btn-secondary" asp-controller="Durations" asp-action="Index">Duration</a>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-6">
+            <div class="card text-white bg-primary mb-3">
+                <div class="card-header">
+                    Instruments
+                </div>
+                <div class="card-body">
+                    <p class="card-text">
+                        Maintain instruments that are taught at CYCM.
+                    </p>
+                    <a class="btn btn-secondary" asp-controller="Instruments" asp-action="Index">Instruments</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-6">
+            <div class="card text-white bg-primary mb-3">
+                <div class="card-header">
+                    Term
+                </div>
+                <div class="card-body">
+                    <p class="card-text">
+                        Maintain School term information for teaching periods.
+                    </p>
+                    <a class="btn btn-secondary" asp-controller="Term" asp-action="Index">Term</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

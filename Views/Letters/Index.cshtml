@@ -1,0 +1,87 @@
+﻿@model CYCMSchool.Models.ViewModels.LettersIndexData;
+
+@{
+    ViewData["Title"] = "Letters";
+}
+
+<h1>Letters</h1>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                Letter Reference
+            </th>
+            <th>
+                Comment
+            </th>
+            <th>
+                Bank Name
+            </th>
+            <th>
+                BSB
+            </th>
+            <th>
+                Account Name
+            </th>
+            <th>
+                Account Number
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model.Letters) {
+    string selectedRow = "";
+    if(item.Id == (int?)ViewData["LetterID"])
+    {
+        selectedRow = "table-success";
+    }
+        <tr class="@selectedRow">
+            <td>
+                @Html.DisplayFor(modelItem => item.LetterRef)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Comment)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Bank.BankName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Bank.BSB)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Bank.AccountName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Bank.AccountNumber)
+            </td>
+            <td>
+                <a asp-action="Index" asp-route-id="@item.Id">Select</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
+@if (Model.Lessons != null)
+            {
+                <h3>Lessons in Letter</h3>
+                <table class="table">
+                    <tr>
+                        <th>Lesson Date</th>
+                        <th>Tutor</th>
+                        <th>Instrument</th>
+                        <th>Cost</th>
+                        <th>Paid</th>
+                    </tr>
+                    @foreach (var item in Model.Lessons)
+                {
+                    <tr>
+                        <td>@item.LessonDate</td>
+                        <td>@item.Tutor.FullName</td>
+                        <td>@item.Instrument.InstrumentName</td>
+                        <td>@item.Duration.Cost</td>
+                        <td>@item.Paid</td>
+                    </tr>
+                }
+                </table>
+            }

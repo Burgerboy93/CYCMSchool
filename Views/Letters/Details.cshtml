@@ -1,0 +1,79 @@
+﻿@model CYCMSchool.Models.Letter
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h1>Details</h1>
+
+<div>
+    <h4>Student</h4>
+    <hr />
+    <dl class="row">
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.LetterRef)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.LetterRef)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Comment)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Comment)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Student.FullName)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Student.FullName)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Student.ContactEmail)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Student.ContactEmail)
+        </dd>
+    </dl>
+    <h4>Lessons attached to letter</h4>
+    <table class="table">
+        <tr>
+            <th>Lesson Date</th>
+            <th>Term</th>
+            <th>Tutor</th>
+            <th>Instrument</th>
+            <th>Duration</th>
+            <th>Cost</th>
+            <th>Paid</th>
+        </tr>
+        @foreach (var item in Model.Lessons)
+        {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.LessonDate)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Term.TermNumber)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Tutor.FullName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Instrument.InstrumentName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Duration.DurationTime)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Duration.Cost)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Paid)
+        </td>
+    </tr>
+        }
+    </table>
+</div>
+<div>
+    <a asp-controller="Students" asp-action="Index">Back to Student List</a>
+</div>
