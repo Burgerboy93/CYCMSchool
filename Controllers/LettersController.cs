@@ -167,7 +167,7 @@ namespace CYCMSchool.Controllers
             smtp.Host = "smtp.gmail.com";
             smtp.Port = 587;
             smtp.UseDefaultCredentials = false;
-            smtp.Credentials = new System.Net.NetworkCredential("S276527.HIT339@gmail.com", "Gd4fk6$g&lIfg");
+            smtp.Credentials = new System.Net.NetworkCredential("", "");
             smtp.EnableSsl = true;
             smtp.Send(mail);
             

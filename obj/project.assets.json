@@ -7309,11 +7309,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Alistair_Holzberger\\Desktop\\Programming\\CYCMSchool\\CYCMSchool.csproj",
+      "projectUniqueName": "C:\\Users\\Alistair_Holzberger\\Desktop\\Programming\\GIT Repository\\CYCMSchool\\CYCMSchool.csproj",
       "projectName": "CYCMSchool",
-      "projectPath": "C:\\Users\\Alistair_Holzberger\\Desktop\\Programming\\CYCMSchool\\CYCMSchool.csproj",
+      "projectPath": "C:\\Users\\Alistair_Holzberger\\Desktop\\Programming\\GIT Repository\\CYCMSchool\\CYCMSchool.csproj",
       "packagesPath": "C:\\Users\\Alistair_Holzberger\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Alistair_Holzberger\\Desktop\\Programming\\CYCMSchool\\obj\\",
+      "outputPath": "C:\\Users\\Alistair_Holzberger\\Desktop\\Programming\\GIT Repository\\CYCMSchool\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
