@@ -21,9 +21,10 @@ namespace CYCMSchool.Controllers
         }
 
         // GET: Lessons
-        public async Task<IActionResult> Index(int? id)
+        public async Task<IActionResult> Index(string search,int? id)
         {
             var viewModel = new LessonsIndexData();
+            ViewData["CurrentFilter"] = search;
             viewModel.Lessons = await _context.Lessons
                 .Include(i => i.Student)
                 .Include(i => i.Instrument)
@@ -36,6 +37,25 @@ namespace CYCMSchool.Controllers
                 .Include(i => i.Duration)
                 .AsNoTracking()
                 .ToListAsync();
+
+            //Get search results
+            if (!String.IsNullOrEmpty(search))
+            {
+
+                viewModel.Lessons = _context.Lessons
+                .AsNoTracking()
+                .Include(i => i.Student)
+                .Include(i => i.Instrument)
+                .Include(i => i.Tutor)
+                .Include(i => i.Term)
+                .Include(i => i.Letters)
+                    .ThenInclude(i => i.Bank)
+                .Where(i => i.Student.FirstName.Contains(search) && i.Student.Inactive.Equals(false) 
+                || i.Student.LastName.Contains(search) && i.Student.Inactive.Equals(false))
+                .ToList();
+
+                return View(viewModel);
+            }
 
             if (id != null)
             {

@@ -8,7 +8,7 @@ namespace CYCMSchool.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
-                name: "Banks",
+                name: "Bank",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
@@ -20,11 +20,11 @@ namespace CYCMSchool.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Banks", x => x.Id);
+                    table.PrimaryKey("PK_Bank", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
-                name: "Durations",
+                name: "Duration",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
@@ -34,11 +34,11 @@ namespace CYCMSchool.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Durations", x => x.Id);
+                    table.PrimaryKey("PK_Duration", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
-                name: "EmailSignatures",
+                name: "EmailSignature",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
@@ -47,11 +47,11 @@ namespace CYCMSchool.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_EmailSignatures", x => x.Id);
+                    table.PrimaryKey("PK_EmailSignature", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
-                name: "Instruments",
+                name: "Instrument",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
@@ -61,11 +61,11 @@ namespace CYCMSchool.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Instruments", x => x.Id);
+                    table.PrimaryKey("PK_Instrument", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
-                name: "Students",
+                name: "Student",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
@@ -76,15 +76,16 @@ namespace CYCMSchool.Migrations
                     StudentGender = table.Column<int>(type: "int", nullable: false),
                     GuardianName = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     ContactEmail = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    ContactNumber = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                    ContactNumber = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Active = table.Column<bool>(type: "bit", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Students", x => x.Id);
+                    table.PrimaryKey("PK_Student", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
-                name: "Terms",
+                name: "Term",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
@@ -95,11 +96,11 @@ namespace CYCMSchool.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Terms", x => x.Id);
+                    table.PrimaryKey("PK_Term", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
-                name: "Tutors",
+                name: "Tutor",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
@@ -111,7 +112,7 @@ namespace CYCMSchool.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Tutors", x => x.Id);
+                    table.PrimaryKey("PK_Tutor", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -122,6 +123,7 @@ namespace CYCMSchool.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Comment = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     BankID = table.Column<int>(type: "int", nullable: false),
+                    PaymentDate = table.Column<DateTime>(type: "datetime2", nullable: false),
                     CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: false, defaultValueSql: "getDate()"),
                     EmailSignatureId = table.Column<int>(type: "int", nullable: false),
                     StudentId = table.Column<int>(type: "int", nullable: true)
@@ -130,27 +132,27 @@ namespace CYCMSchool.Migrations
                 {
                     table.PrimaryKey("PK_Letter", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Letter_Banks_BankID",
+                        name: "FK_Letter_Bank_BankID",
                         column: x => x.BankID,
-                        principalTable: "Banks",
+                        principalTable: "Bank",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_Letter_EmailSignatures_EmailSignatureId",
+                        name: "FK_Letter_EmailSignature_EmailSignatureId",
                         column: x => x.EmailSignatureId,
-                        principalTable: "EmailSignatures",
+                        principalTable: "EmailSignature",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_Letter_Students_StudentId",
+                        name: "FK_Letter_Student_StudentId",
                         column: x => x.StudentId,
-                        principalTable: "Students",
+                        principalTable: "Student",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
-                name: "Lessons",
+                name: "Lesson",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
@@ -165,35 +167,35 @@ namespace CYCMSchool.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Lessons", x => x.Id);
+                    table.PrimaryKey("PK_Lesson", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Lessons_Durations_DurationID",
+                        name: "FK_Lesson_Duration_DurationID",
                         column: x => x.DurationID,
-                        principalTable: "Durations",
+                        principalTable: "Duration",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_Lessons_Instruments_InstrumentID",
+                        name: "FK_Lesson_Instrument_InstrumentID",
                         column: x => x.InstrumentID,
-                        principalTable: "Instruments",
+                        principalTable: "Instrument",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_Lessons_Students_StudentID",
+                        name: "FK_Lesson_Student_StudentID",
                         column: x => x.StudentID,
-                        principalTable: "Students",
+                        principalTable: "Student",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_Lessons_Terms_TermID",
+                        name: "FK_Lesson_Term_TermID",
                         column: x => x.TermID,
-                        principalTable: "Terms",
+                        principalTable: "Term",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_Lessons_Tutors_TutorID",
+                        name: "FK_Lesson_Tutor_TutorID",
                         column: x => x.TutorID,
-                        principalTable: "Tutors",
+                        principalTable: "Tutor",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -209,9 +211,9 @@ namespace CYCMSchool.Migrations
                 {
                     table.PrimaryKey("PK_LessonLetter", x => new { x.LessonsId, x.LettersId });
                     table.ForeignKey(
-                        name: "FK_LessonLetter_Lessons_LessonsId",
+                        name: "FK_LessonLetter_Lesson_LessonsId",
                         column: x => x.LessonsId,
-                        principalTable: "Lessons",
+                        principalTable: "Lesson",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
@@ -223,34 +225,34 @@ namespace CYCMSchool.Migrations
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_LessonLetter_LettersId",
-                table: "LessonLetter",
-                column: "LettersId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Lessons_DurationID",
-                table: "Lessons",
+                name: "IX_Lesson_DurationID",
+                table: "Lesson",
                 column: "DurationID");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Lessons_InstrumentID",
-                table: "Lessons",
+                name: "IX_Lesson_InstrumentID",
+                table: "Lesson",
                 column: "InstrumentID");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Lessons_StudentID",
-                table: "Lessons",
+                name: "IX_Lesson_StudentID",
+                table: "Lesson",
                 column: "StudentID");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Lessons_TermID",
-                table: "Lessons",
+                name: "IX_Lesson_TermID",
+                table: "Lesson",
                 column: "TermID");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Lessons_TutorID",
-                table: "Lessons",
+                name: "IX_Lesson_TutorID",
+                table: "Lesson",
                 column: "TutorID");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_LessonLetter_LettersId",
+                table: "LessonLetter",
+                column: "LettersId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Letter_BankID",
@@ -274,31 +276,31 @@ namespace CYCMSchool.Migrations
                 name: "LessonLetter");
 
             migrationBuilder.DropTable(
-                name: "Lessons");
+                name: "Lesson");
 
             migrationBuilder.DropTable(
                 name: "Letter");
 
             migrationBuilder.DropTable(
-                name: "Durations");
+                name: "Duration");
 
             migrationBuilder.DropTable(
-                name: "Instruments");
+                name: "Instrument");
 
             migrationBuilder.DropTable(
-                name: "Terms");
+                name: "Term");
 
             migrationBuilder.DropTable(
-                name: "Tutors");
+                name: "Tutor");
 
             migrationBuilder.DropTable(
-                name: "Banks");
+                name: "Bank");
 
             migrationBuilder.DropTable(
-                name: "EmailSignatures");
+                name: "EmailSignature");
 
             migrationBuilder.DropTable(
-                name: "Students");
+                name: "Student");
         }
     }
 }

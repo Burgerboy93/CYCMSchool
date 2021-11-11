@@ -44,7 +44,7 @@ namespace CYCMSchool.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Banks");
+                    b.ToTable("Bank");
                 });
 
             modelBuilder.Entity("CYCMSchool.Models.Duration", b =>
@@ -62,7 +62,7 @@ namespace CYCMSchool.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Durations");
+                    b.ToTable("Duration");
                 });
 
             modelBuilder.Entity("CYCMSchool.Models.EmailSignature", b =>
@@ -78,7 +78,7 @@ namespace CYCMSchool.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("EmailSignatures");
+                    b.ToTable("EmailSignature");
                 });
 
             modelBuilder.Entity("CYCMSchool.Models.Instrument", b =>
@@ -97,7 +97,7 @@ namespace CYCMSchool.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Instruments");
+                    b.ToTable("Instrument");
                 });
 
             modelBuilder.Entity("CYCMSchool.Models.Lesson", b =>
@@ -140,7 +140,7 @@ namespace CYCMSchool.Migrations
 
                     b.HasIndex("TutorID");
 
-                    b.ToTable("Lessons");
+                    b.ToTable("Lesson");
                 });
 
             modelBuilder.Entity("CYCMSchool.Models.Letter", b =>
@@ -208,6 +208,9 @@ namespace CYCMSchool.Migrations
                         .HasMaxLength(200)
                         .HasColumnType("nvarchar(200)");
 
+                    b.Property<bool>("Inactive")
+                        .HasColumnType("bit");
+
                     b.Property<string>("LastName")
                         .IsRequired()
                         .HasMaxLength(200)
@@ -218,7 +221,7 @@ namespace CYCMSchool.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Students");
+                    b.ToTable("Student");
                 });
 
             modelBuilder.Entity("CYCMSchool.Models.Term", b =>
@@ -239,7 +242,7 @@ namespace CYCMSchool.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Terms");
+                    b.ToTable("Term");
                 });
 
             modelBuilder.Entity("CYCMSchool.Models.Tutor", b =>
@@ -269,7 +272,7 @@ namespace CYCMSchool.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Tutors");
+                    b.ToTable("Tutor");
                 });
 
             modelBuilder.Entity("LessonLetter", b =>

@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using CYCMSchool.Data;
 using CYCMSchool.Models;
+using CYCMSchool.Models.ViewModels;
 
 namespace CYCMSchool.Controllers
 {
@@ -20,9 +21,27 @@ namespace CYCMSchool.Controllers
         }
 
         // GET: Tutors
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(int? id)
         {
-            return View(await _context.Tutors.ToListAsync());
+            var viewModel = new TutorsIndexData();
+            viewModel.Tutors = await _context.Tutors
+                .Include(i => i.Lessons)
+                    .ThenInclude(i => i.Student)
+                .Include(i => i.Lessons)
+                    .ThenInclude(i => i.Instrument)
+                .Include(i => i.Lessons)
+                    .ThenInclude(i => i.Duration)
+                .AsNoTracking()
+                .ToListAsync();
+
+            if (id != null)
+            {
+                ViewData["TutorID"] = id.Value;
+                Tutor tutor = viewModel.Tutors.Where(
+                    i => i.Id == id.Value).Single();
+                viewModel.Lessons = tutor.Lessons;
+            }
+            return View(viewModel);
         }
 
         // GET: Tutors/Details/5

@@ -156,7 +156,7 @@ namespace CYCMSchool.Controllers
 
         private void SendLetter(Letter letter)
         {
-
+            //Configuration of the mailing service
             MailMessage mail = new MailMessage();
             mail.To.Add(letter.Student.ContactEmail);
             mail.From = new MailAddress("S276527.HIT339@gmail.com");
@@ -167,7 +167,7 @@ namespace CYCMSchool.Controllers
             smtp.Host = "smtp.gmail.com";
             smtp.Port = 587;
             smtp.UseDefaultCredentials = false;
-            smtp.Credentials = new System.Net.NetworkCredential("", "");
+            smtp.Credentials = new System.Net.NetworkCredential("Username", "Password");
             smtp.EnableSsl = true;
             smtp.Send(mail);
             
@@ -177,6 +177,7 @@ namespace CYCMSchool.Controllers
             return _context.Letters.Any(e => e.Id == id);
         }
 
+        //Formatting and construction of the letter contents
         private string BuildBody(Letter letter)
         {
             decimal total = 0;
@@ -205,7 +206,7 @@ namespace CYCMSchool.Controllers
                 }
             }
 
-            //greetings bit
+            //Construction of the letter
             body.AppendLine($"Dear, {letter.Student.FirstName}");
             body.AppendLine("<br><br>");
             body.AppendLine(letter.Comment);
@@ -249,6 +250,7 @@ namespace CYCMSchool.Controllers
             return body.ToString();
         }
 
+        //This returns the unpaid lessons when a student has been selected.
         private void PopulateAssignedLessonsList(Letter letter, int? studentId, bool paid = false)
         {
 

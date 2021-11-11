@@ -59,6 +59,8 @@ namespace CYCMSchool.Models
         [Display(Name = "Contact Number")]
         public string ContactNumber { get; set; }
 
+        public bool Inactive { get; set; }
+
         [Display(Name = "Full Name")]
         public string FullName { get 
             {

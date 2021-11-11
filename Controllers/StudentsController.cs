@@ -21,8 +21,9 @@ namespace CYCMSchool.Controllers
         }
 
         // GET: Students
-        public async Task<IActionResult> Index(string sortOrder, int? id, int? lessonId, int? letterId)
+        public async Task<IActionResult> Index(string search, int? id, int? lessonId, int? letterId)
         {
+            
             var viewModel = new StudentIndexData();
             viewModel.StudentID = id ?? 0;
             viewModel.Students = await _context.Students
@@ -37,42 +38,9 @@ namespace CYCMSchool.Controllers
                     .ThenInclude(i => i.Term)
                 .Include(i => i.Letters)
                     .ThenInclude(i => i.Bank)
+                .Where(i => i.Inactive.Equals(false))
                 .ToListAsync();
 
-
-            ViewBag.FirstNameSort = String.IsNullOrEmpty(sortOrder) ? "first_name_desc" : "";
-            ViewBag.LastNameSort = String.IsNullOrEmpty(sortOrder) ? "last_name_desc" : "";
-            ViewBag.DateOfBirthSort = sortOrder == "Date" ? "date_desc" : "Date";
-            ViewBag.GenderSort = String.IsNullOrEmpty(sortOrder) ? "gender_desc" : "";
-            ViewBag.GuardianSort = String.IsNullOrEmpty(sortOrder) ? "guardian_desc" : "";
-            ViewBag.ContactEmailSort = String.IsNullOrEmpty(sortOrder) ? "email_desc" : "";
-            ViewBag.ContactNumSort = String.IsNullOrEmpty(sortOrder) ? "phone_desc" : "";
-            
-            switch (sortOrder)
-            {
-                case "first_name_desc":
-                    viewModel.Students.OrderByDescending(s => s.FirstName);
-                    break;
-                case "last_name_desc":
-                    viewModel.Students.OrderByDescending(s => s.LastName);
-                    break;
-                case "date_desc":
-                    viewModel.Students.OrderByDescending(s => s.DateOfBirth);
-                    break;
-                case "gender_desc":
-                    viewModel.Students.OrderByDescending(s => s.StudentGender);
-                    break;
-                case "guardian_desc":
-                    viewModel.Students.OrderByDescending(s => s.GuardianName);
-                    break;
-                case "email_desc":
-                    viewModel.Students.OrderByDescending(s => s.ContactEmail);
-                    break;
-                case "phone_desc":
-                    viewModel.Students.OrderByDescending(s => s.ContactNumber);
-                    break;
-
-            }
             
             if (id != null)
             {
@@ -131,7 +99,7 @@ namespace CYCMSchool.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,FirstName,LastName,DateOfBirth,StudentGender,GuardianName,ContactEmail,ContactNumber")] Student student)
+        public async Task<IActionResult> Create([Bind("Id,FirstName,LastName,DateOfBirth,StudentGender,GuardianName,ContactEmail,ContactNumber,Inactive")] Student student)
         {
             if (ModelState.IsValid)
             {
@@ -163,7 +131,7 @@ namespace CYCMSchool.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,FirstName,LastName,DateOfBirth,StudentGender,GuardianName,ContactEmail,ContactNumber")] Student student)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,FirstName,LastName,DateOfBirth,StudentGender,GuardianName,ContactEmail,ContactNumber,Inactive")] Student student)
         {
             if (id != student.Id)
             {

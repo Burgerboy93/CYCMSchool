@@ -31,20 +31,37 @@
             </div>
         </div>
     </div>
-    <div class="row">
-        <div class="col-sm-6">
-            <div class="card text-white bg-primary mb-3">
-                <div class="card-header">
-                    Instruments
-                </div>
-                <div class="card-body">
-                    <p class="card-text">
-                        Maintain instruments that are taught at CYCM.
-                    </p>
-                    <a class="btn btn-secondary" asp-controller="Instruments" asp-action="Index">Instruments</a>
-                </div>
+    </div>
+<div class="row">
+    <div class="col-sm-6">
+        <div class="card text-white bg-primary mb-3">
+            <div class="card-header">
+                Email Signatures
+            </div>
+            <div class="card-body">
+                <p class="card-text">
+                    Maintain email signatures used on letters.
+                </p>
+                <a class="btn btn-secondary" asp-controller="EmailSignatures" asp-action="Index">Email Signatures</a>
             </div>
         </div>
+    </div>
+    <div class="col-sm-6">
+        <div class="card text-white bg-primary mb-3">
+            <div class="card-header">
+                Instruments
+            </div>
+            <div class="card-body">
+                <p class="card-text">
+                    Maintain instruments that are taught at CYCM.
+                </p>
+                <a class="btn btn-secondary" asp-controller="Instruments" asp-action="Index">Instruments</a>
+            </div>
+        </div>
+    </div>
+
+</div>
+<div class="row">
         <div class="col-sm-6">
             <div class="card text-white bg-primary mb-3">
                 <div class="card-header">
@@ -54,9 +71,8 @@
                     <p class="card-text">
                         Maintain School term information for teaching periods.
                     </p>
-                    <a class="btn btn-secondary" asp-controller="Term" asp-action="Index">Term</a>
+                    <a class="btn btn-secondary" asp-controller="Terms" asp-action="Index">Term</a>
                 </div>
             </div>
         </div>
     </div>
-</div>

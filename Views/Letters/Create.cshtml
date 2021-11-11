@@ -32,12 +32,14 @@
                 <select asp-for="BankID" class="form-control" asp-items="ViewBag.BankID"></select>
             </div>
             <div class="form-group">
-                <label class="control-label">Student</label>
+                <label class="control-label">Email Signature</label>
                 <select asp-for="EmailSignatureId" asp-items="ViewBag.EmailSignatureID" class="form-control"></select>
                 <span asp-validation-for="EmailSignature" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <div class"col-md-offset-2 col-md-10">
+                   
+                    @*Table for the students unpaid lessons*@
                     <table>
                         <tr>
                             @{
